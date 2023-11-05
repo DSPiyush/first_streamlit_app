@@ -20,6 +20,6 @@ my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/da
 my_fruit_list.set_index('Fruit', inplace = True)
 
 # After setting the index as fruit we are going to create the widget from multiselect and let the user pick the fruit, lets see how
-streamlit.multiselect(label = "Pick some fruits:", options = list(my_fruit_list.index))
+streamlit.multiselect(label = "Pick some fruits:", options = list(my_fruit_list.index), default=['Avocado','Strawberries'])
 
 streamlit.dataframe(my_fruit_list)
