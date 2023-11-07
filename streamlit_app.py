@@ -49,10 +49,13 @@ try:
 except requests.exceptions.JSONDecodeError:
   print("Waiting for you to enter a value...")
 
-
-# AS OF NOW everything is shown here in the app - the response status code - the json raw text - the tabular json format(normalized) we will keep only table
-
-# Now lets make the api call dynamic and let the user decide for which 1 fruit he needs advice and we can take his input from the text input!
+# below code is for the connection from snowflake to streamlit, after we have made the changes in Streamlit app -> settings -> secrets 
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+my_cur = my_cnx.cursor()
+my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+my_data_row = my_cur.fetchone()
+streamlit.text("Hello from Snowflake:")
+streamlit.text(my_data_row)
 
 
 
