@@ -35,15 +35,16 @@ streamlit.header('Fruityvice Fruit Advice!')
 fruit_choice = streamlit.text_input(label  = "For which fruit do you need help", placeholder = 'Kiwi')
 streamlit.write("The user Entered", fruit_choice)
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
+
 # streamlit.text(fruityvice_response) #check the response status code
 # streamlit.text(fruityvice_response.json()) # if the above is 200 - the json format is visible for the url we have in get, THIS WILL JUST SHOW THE TEXT AS IT ISON SCREEN
 
 # Take your json response and normalize it 
 try:
+  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
   fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-catch requests.exceptions.JSONDecodeError:
-  print("You have not entered any value yet")
+except requests.exceptions.JSONDecodeError:
+  print("Waiting for you to enter a value...")
 
 
 # to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
