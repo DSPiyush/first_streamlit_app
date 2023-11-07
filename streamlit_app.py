@@ -31,7 +31,11 @@ streamlit.dataframe(my_fruit_list.loc[fruits_to_show])
 
 
 streamlit.header('Fruityvice Fruit Advice!')
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+
+fruit_choice = streamlit.text_input(label  = "For which fruit do you need help", value = 'Kiwi')
+streamlit.write("The user Entered", fruit_choice)
+
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
 # streamlit.text(fruityvice_response) #check the response status code
 # streamlit.text(fruityvice_response.json()) # if the above is 200 - the json format is visible for the url we have in get, THIS WILL JUST SHOW THE TEXT AS IT ISON SCREEN
 
