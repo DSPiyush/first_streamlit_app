@@ -32,7 +32,7 @@ streamlit.dataframe(my_fruit_list.loc[fruits_to_show])
 
 streamlit.header('Fruityvice Fruit Advice!')
 
-fruit_choice = streamlit.text_input(label  = "For which fruit do you need help", value = 'Kiwi')
+fruit_choice = streamlit.text_input(label  = "For which fruit do you need help", placeholder = 'Kiwi')
 streamlit.write("The user Entered", fruit_choice)
 
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
