@@ -33,5 +33,43 @@ streamlit.dataframe(my_fruit_list.loc[fruits_to_show])
 streamlit.header('Fruityvice Fruit Advice!')
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 streamlit.text(fruityvice_response) #check the response status code
-streamlit.text(fruityvice_response.json()) # if the above is 200 - the json format is visible for the url we have in get
+streamlit.text(fruityvice_response.json()) # if the above is 200 - the json format is visible for the url we have in get, THIS WILL JUST SHOW THE TEXT AS IT ISON SCREEN
+
+# Take your json response and normalize it 
+
+fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+
+# to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
+
+streamlit.dataframe(fruityvice_normalized)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
