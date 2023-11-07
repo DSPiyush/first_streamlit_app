@@ -1,5 +1,6 @@
 import streamlit
 import pandas as pd
+import requests
 
 streamlit.title("My Mom's New Healthy Diner")
 
@@ -27,4 +28,10 @@ my_fruit_list.set_index('Fruit', inplace = True)
 fruits_to_show = streamlit.multiselect(label = "Pick some fruits:", options = list(my_fruit_list.index), default=['Avocado','Strawberries'])
 
 streamlit.dataframe(my_fruit_list.loc[fruits_to_show])
+
+
+streamlit.header('Fruityvice Fruit Advice!')
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+streamlit.text(fruityvice_response) #check the response status code
+streamlit.text(fruityvice_response.json()) # if the above is 200 - the json format is visible for the url we have in get
 
