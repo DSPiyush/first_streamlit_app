@@ -40,8 +40,11 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_ch
 # streamlit.text(fruityvice_response.json()) # if the above is 200 - the json format is visible for the url we have in get, THIS WILL JUST SHOW THE TEXT AS IT ISON SCREEN
 
 # Take your json response and normalize it 
+try:
+  fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+catch requests.exceptions.JSONDecodeError:
+  print("You have not entered any value yet")
 
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 
 # to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
 
