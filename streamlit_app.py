@@ -43,13 +43,11 @@ streamlit.write("The user Entered", fruit_choice)
 try:
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
   fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+  # to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
+  streamlit.dataframe(fruityvice_normalized)
 except requests.exceptions.JSONDecodeError:
   print("Waiting for you to enter a value...")
 
-
-# to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
-
-streamlit.dataframe(fruityvice_normalized)
 
 # AS OF NOW everything is shown here in the app - the response status code - the json raw text - the tabular json format(normalized) we will keep only table
 
