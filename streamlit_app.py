@@ -34,7 +34,7 @@ streamlit.dataframe(my_fruit_list.loc[fruits_to_show])
 
 streamlit.header('Fruityvice Fruit Advice!')
 
-fruit_choice = streamlit.text_input(label  = "For which fruit do you need help", 'Kiwi')
+fruit_choice = streamlit.text_input("For which fruit do you need help", 'Kiwi')
 streamlit.write("The user Entered", fruit_choice)
 
 
