@@ -36,16 +36,19 @@ streamlit.header('Fruityvice Fruit Advice!')
 
 # fruit_choice = streamlit.text_input("For which fruit do you need help", 'Kiwi')
 #streamlit.write("The user Entered", fruit_choice) # This is removed 
+def get_fruityvice_data(this_fruit_choice):
+    # Take your json response and normalize it , this is the same code we were using before
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ this_fruit_choice)
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    return fruityvice_normalized
 try:
   fruit_choice = streamlit.text_input("For which fruit do you need help") # changes from above to this
   if not fruit_choice:
     streamlit.error("Please select a fruit to get information")
   else:
-    # Take your json response and normalize it , this is the same code we were using before
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
-    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    back_from_function = get_fruityvice_data(fruit_choice)
     # to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
-    streamlit.dataframe(fruityvice_normalized)
+    streamlit.dataframe(back_from_function)
 except URLError as e:
   streamlit.errot()
 
