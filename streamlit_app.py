@@ -31,21 +31,23 @@ fruits_to_show = streamlit.multiselect(label = "Pick some fruits:", options = li
 
 streamlit.dataframe(my_fruit_list.loc[fruits_to_show])
 
-
+#NEW SECTION
 streamlit.header('Fruityvice Fruit Advice!')
 
-fruit_choice = streamlit.text_input("For which fruit do you need help", 'Kiwi')
-streamlit.write("The user Entered", fruit_choice)
-
-
-# streamlit.text(fruityvice_response) #check the response status code
-# streamlit.text(fruityvice_response.json()) # if the above is 200 - the json format is visible for the url we have in get, THIS WILL JUST SHOW THE TEXT AS IT IS IN SCREEN
-
-# Take your json response and normalize it 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-# to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
-streamlit.dataframe(fruityvice_normalized)
+# fruit_choice = streamlit.text_input("For which fruit do you need help", 'Kiwi')
+#streamlit.write("The user Entered", fruit_choice) # This is removed 
+try:
+  fruit_choice = streamlit.text_input("For which fruit do you need help") # changes from above to this
+  if not fruit_choice:
+    streamlit.error("Please select a fruit to get information")
+  else:
+    # Take your json response and normalize it , this is the same code we were using before
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    # to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
+    streamlit.dataframe(fruityvice_normalized)
+except URLError as e:
+  streamlit.errot()
 
 
 streamlit.stop()
