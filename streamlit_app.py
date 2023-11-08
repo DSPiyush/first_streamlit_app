@@ -47,6 +47,8 @@ fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
 streamlit.dataframe(fruityvice_normalized)
 
+
+streamlit.stop()
 # below code is for the connection from snowflake to streamlit, after we have made the changes in Streamlit app -> settings -> secrets 
 
 # my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
