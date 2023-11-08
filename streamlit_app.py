@@ -50,10 +50,9 @@ try:
     # to make it look like a table on your streamlit app, we have already used dataframe before lets use it again!
     streamlit.dataframe(back_from_function)
 except URLError as e:
-  streamlit.errot()
+  streamlit.error()
 
 
-streamlit.stop()
 # below code is for the connection from snowflake to streamlit, after we have made the changes in Streamlit app -> settings -> secrets 
 
 # my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
@@ -63,14 +62,24 @@ streamlit.stop()
 # streamlit.text("Hello from Snowflake:")
 # streamlit.text(my_data_row)
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-first_row = my_cur.execute('select * from fruit_load_list')
-my_data_rows = my_cur.fetchall()
+# my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+# my_cur = my_cnx.cursor()
+# first_row = my_cur.execute('select * from fruit_load_list')
+# my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains: ")
-streamlit.dataframe(my_data_rows)
+def get_fruit_load_list():
+    with my_cnx.cursor as my_cur:
+        my_cur.execute('select * from fruit_load_list')
+        return my_cur.fetchall()
+
+#Add a button to load the fruit
+if streamlit.button('Get Fruit Load List'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_data_rows = get_fruit_load_list()
+    streamlit.dataframe(my_data_rows)
 
 
+streamlit.stop()
 
 # adding a second text input box
 add_my_fruit = streamlit.text_input(label = 'What Fruit would you like to add ?')
